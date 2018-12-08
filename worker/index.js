@@ -6,7 +6,6 @@ const redisClient = redis.createClient({
   port: keys.redisPort,
   retry_strategy: () => 1000
 });
-
 const sub = redisClient.duplicate();
 
 function fib(index) {
@@ -15,13 +14,6 @@ function fib(index) {
 }
 
 sub.on('message', (channel, message) => {
-  // Every time we get an new value in redis
-  // We are going to calculate a new fibonacci value
-  // and we gonna insert hased into values
-  // The key will the index (message) and the value will be the
-  // fib value
   redisClient.hset('values', message, fib(parseInt(message)));
 });
-
 sub.subscribe('insert');
-
