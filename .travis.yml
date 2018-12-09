@@ -9,15 +9,15 @@ script:
   - docker run mstamos/react-test npm test -- --coverage
 
 after_success:
-  - docker build -t mstamos/multi-client ./client
   - docker build -t mstamos/multi-server ./server
   - docker build -t mstamos/multi-worker ./worker
   - docker build -t mstamos/multi-nginx ./nginx
+  - docker build -t mstamos/multi-client ./client
 
 # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
 # Take those images from travis
-  - docker push mstamos/multi-client
   - docker push mstamos/multi-server
   - docker push mstamos/multi-worker
   - docker push mstamos/multi-nginx
+  - docker push mstamos/multi-client
