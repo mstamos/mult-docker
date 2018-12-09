@@ -9,6 +9,8 @@
   },
   "scripts": {
     "dev": "nodemon",
-    "start": "node index.js"
+    "start": "node index.js",
+    "docker-debug": "docker-compose -f ../debug-compose.yml up --build",
+    "debug": "nodemon --legacy-watch --watch ./ --inspect=0.0.0.0:9229 --nolazy ./index.js"
   }
 }
